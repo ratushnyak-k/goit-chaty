@@ -1,7 +1,7 @@
 <template>
   <md-list-item>
     <slot></slot>
-    <div v-if="(showActionButtons = 'true')">
+    <div v-if="showActionButtons">
       <md-button class="md-icon-button md-list-action" @click="onEditClick">
         <md-icon>edit</md-icon>
       </md-button>
