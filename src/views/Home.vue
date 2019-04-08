@@ -29,7 +29,7 @@
 </template>
 
 <style lang="scss" scoped>
-  small {
-    display: block;
-  }
+small {
+  display: block;
+}
 </style>
