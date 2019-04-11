@@ -2,7 +2,7 @@
   <form @submit.prevent="addMessage">
     <md-field>
       <label for="text_message">Type message...</label>
-      <md-input name="text_message" type="text" v-model="value" />
+      <md-input name="text_message" type="text" v-model.trim="value" />
     </md-field>
   </form>
 </template>
@@ -22,11 +22,12 @@ export default {
 
   methods: {
     addMessage() {
-      const newMessage = this.value.trim();
-      if (newMessage !== 0) {
-        this.onSubmit({ value: newMessage });
+      // const newMessage = this.value.trim();
+      if (this.value) {
+        this.onSubmit({ value: this.value });
+         this.value = '';
       }
-      this.value = '';
+     
     },
   },
 };
