@@ -49,8 +49,8 @@
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate';
-import { required, minLength } from 'vuelidate/lib/validators';
+  import { validationMixin } from 'vuelidate';
+  import { required, minLength } from 'vuelidate/lib/validators';
 export default {
   name: 'FormValidation',
   mixins: [validationMixin],
