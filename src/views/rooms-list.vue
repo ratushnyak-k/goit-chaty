@@ -40,7 +40,7 @@
   flex-direction: column;
 }
 .md-list {
-  overflow-y: scroll;
+  overflow-x: auto;
   height: 100%;
 }
 .md-raised {
@@ -59,6 +59,18 @@ export default {
   data() {
     return {
       rooms: [
+        { id: 1, name: 'Room name 1', creatorId: 1 },
+        { id: 2, name: 'Room name 2', creatorId: 2 },
+        { id: 3, name: 'Room name 3', creatorId: 3 },
+        { id: 1, name: 'Room name 1', creatorId: 1 },
+        { id: 2, name: 'Room name 2', creatorId: 2 },
+        { id: 3, name: 'Room name 3', creatorId: 3 },
+        { id: 1, name: 'Room name 1', creatorId: 1 },
+        { id: 2, name: 'Room name 2', creatorId: 2 },
+        { id: 3, name: 'Room name 3', creatorId: 3 },
+        { id: 1, name: 'Room name 1', creatorId: 1 },
+        { id: 2, name: 'Room name 2', creatorId: 2 },
+        { id: 3, name: 'Room name 3', creatorId: 3 },
         { id: 1, name: 'Room name 1', creatorId: 1 },
         { id: 2, name: 'Room name 2', creatorId: 2 },
         { id: 3, name: 'Room name 3', creatorId: 3 },
