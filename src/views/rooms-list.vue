@@ -15,21 +15,19 @@
         <md-divider></md-divider>
 
         <md-list>
-          <room-item v-for="room in rooms" v-bind:key="room.id" v-bind:name="room.name">{{
-            room.name
-          }}</room-item>
+          <room-item v-for="room in rooms" v-bind:key="room.id">{{ room.name }}</room-item>
         </md-list>
         <md-button class="md-raised md-accent">Logout</md-button>
       </md-app-drawer>
 
-      <md-app-content> </md-app-content>
+      <md-app-content></md-app-content>
     </md-app>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .md-app {
-  max-height: 400px;
+  height: 100vh;
   border: 1px solid rgba(#000, 0.12);
 }
 
@@ -41,20 +39,24 @@
   display: flex;
   flex-direction: column;
 }
+.md-list {
+  overflow-y: scroll;
+  height: 100%;
+}
 .md-raised {
   margin-top: auto;
 }
 </style>
 
 <script>
-import roomItem from '@/components/room-item.vue';
+import RoomItem from '@/components/room-item.vue';
 
 export default {
   name: 'rooms-list',
   components: {
-    roomItem,
+    RoomItem,
   },
-  data: function() {
+  data() {
     return {
       rooms: [
         { id: 1, name: 'Room name 1', creatorId: 1 },
