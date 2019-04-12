@@ -22,12 +22,10 @@ export default {
 
   methods: {
     addMessage() {
-      // const newMessage = this.value.trim();
       if (this.value) {
         this.onSubmit({ value: this.value });
-         this.value = '';
+        this.value = '';
       }
-     
     },
   },
 };
