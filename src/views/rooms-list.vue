@@ -15,7 +15,7 @@
         <md-divider></md-divider>
 
         <md-list>
-          <room-item v-for="room in rooms" v-bind:key="room.id">{{ room.name }}</room-item>
+          <room-item v-for="room in rooms" :key="room.id">{{ room.name }}</room-item>
         </md-list>
         <md-button class="md-raised md-accent">Logout</md-button>
       </md-app-drawer>
