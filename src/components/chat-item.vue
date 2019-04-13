@@ -1,18 +1,16 @@
 <template>
-  <div class="separator">
-    <md-list-item>
-      <md-avatar class="md-avatar-icon md-large md-accent">
-        <md-ripple>{{avatarName}}</md-ripple>
-      </md-avatar>
-      <div class="md-list-item-text">
-        <div class="inform_creator">
-          <b>{{fullName}}</b>
-          <span>{{timeCreation}}</span>
-        </div>
-        <p>{{message.value}}</p>
+  <md-list-item>
+    <md-avatar class="md-avatar-icon md-large md-accent">
+      <md-ripple>{{avatarName}}</md-ripple>
+    </md-avatar>
+    <div class="md-list-item-text">
+      <div class="inform_creator">
+        <b>{{fullName}}</b>
+        <span>{{timeCreation}}</span>
       </div>
-    </md-list-item>
-  </div>
+      <p>{{message.value}}</p>
+    </div>
+  </md-list-item>
 </template>
  <script>
 import ChatInput from '@/components/chat-input.vue';
@@ -27,7 +25,7 @@ export default {
   },
   data() {
     return {
-      user: null
+      user: null,
     };
   },
 
@@ -51,7 +49,7 @@ export default {
 };
 </script>
 
- <style>
+ <style scoped>
 p {
   white-space: normal;
 }
@@ -60,5 +58,6 @@ p {
   color: #4d4d4d;
 }
 </style>
+
  
  
