@@ -1,21 +1,21 @@
 <template>
   <md-list-item>
     <md-avatar class="md-avatar-icon md-large md-accent">
-      <md-ripple>{{avatarName}}</md-ripple>
+      <md-ripple>{{ avatarName }}</md-ripple>
     </md-avatar>
     <div class="md-list-item-text">
       <div class="inform_creator">
-        <b>{{fullName}}</b>
-        <span>{{timeCreation}}</span>
+        <b>{{ fullName }}</b>
+        <span>{{ timeCreation }}</span>
       </div>
-      <p>{{message.value}}</p>
+      <p>{{ message.value }}</p>
     </div>
   </md-list-item>
 </template>
- <script>
+<script>
 export default {
   name: 'chat-item',
-    props: {
+  props: {
     message: {
       type: Object,
       required: true,
@@ -47,7 +47,7 @@ export default {
 };
 </script>
 
- <style scoped>
+<style scoped>
 p {
   white-space: normal;
 }
@@ -56,6 +56,3 @@ p {
   color: #4d4d4d;
 }
 </style>
-
- 
- 
