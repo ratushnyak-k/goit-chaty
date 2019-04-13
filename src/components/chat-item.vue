@@ -6,7 +6,7 @@
     <div class="md-list-item-text">
       <div class="inform_creator">
         <b>{{ fullName }}</b>
-        <span>{{ timeCreation }}</span>
+        <span>{{ ' ' }}{{ timeCreation }}</span>
       </div>
       <p>{{ message.value }}</p>
     </div>
@@ -23,7 +23,10 @@ export default {
   },
   data() {
     return {
-      user: null,
+      user: {
+        firstName: 'John',
+        lastName: 'Doe',
+      },
     };
   },
 
