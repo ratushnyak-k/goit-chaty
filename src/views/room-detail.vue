@@ -1,9 +1,11 @@
 <template>
   <div>
-    <p v-if="messages.length === 0">No messages yet</p>
-    <div class="message" v-for="message in messages" :key="message.createdAt">
-      {{ message.value }}
+    <div v-if="messages.length">
+      <div class="message" v-for="message in messages" :key="message.createdAt">
+        {{ message.value }}
+      </div>
     </div>
+    <p v-else>No messages yet</p>
     <chat-input :onSubmit="onSubmit"></chat-input>
   </div>
 </template>
