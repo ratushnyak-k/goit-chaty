@@ -71,7 +71,7 @@ export default {
   data() {
     return {
       form: {
-        room: '',
+        room: this.name,
       },
       lastRoom: '',
       roomSaved: false,
