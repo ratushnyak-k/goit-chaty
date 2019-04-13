@@ -19,11 +19,13 @@ export default new Router({
       path: '/rooms',
       name: 'rooms',
       component: RoomsList,
-    },
-    {
-      path: '/room-detail',
-      name: 'room-detail',
-      component: RoomDetail,
+      children: [
+        {
+          path: ':id',
+          name: 'room-detail',
+          component: RoomDetail,
+        },
+      ],
     },
   ],
 });

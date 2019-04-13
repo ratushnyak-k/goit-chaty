@@ -1,7 +1,7 @@
 <template>
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed">
-      <md-app-toolbar class="md-primary">
+      <md-app-toolbar class="md-primary" v-if="$route.params.id">
         <span class="md-title">ROOM</span>
       </md-app-toolbar>
       <md-app-drawer md-permanent="full">
@@ -58,6 +58,8 @@
             :name="dialogData.name"
           ></edit-room-form>
         </md-dialog>
+
+        <router-view></router-view>
       </md-app-content>
     </md-app>
   </div>
