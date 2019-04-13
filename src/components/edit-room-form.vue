@@ -18,39 +18,51 @@
                 v-model="form.room"
                 :disabled="sending"
               />
+              <span class="md-error" v-if="!$v.form.room.required">The Room name is required</span>
             </md-field>
           </div>
         </div>
       </md-card-content>
 
-      <md-progress-bar md-mode="indeterminate" v-if="sending"/>
+      <md-progress-bar md-mode="indeterminate" v-if="sending" />
 
       <md-card-actions>
-        <md-button
-          type="submit"
-          class="md-primary"
-          :disabled="sending"
-        >{{ name ? 'Edit' : 'Add' }} Room</md-button>
+        <md-button type="button" class="md-primary" :disabled="sending" @click="onClose">
+          Close
+        </md-button>
+        <md-button type="submit" class="md-primary" :disabled="sending"
+          >{{ name ? 'Edit' : 'Add' }} Room</md-button
+        >
       </md-card-actions>
     </md-card>
 
-    <md-snackbar :md-active.sync="roomSaved">The room {{ lastRoom }} was saved with success!</md-snackbar>
+    <md-snackbar :md-active.sync="roomSaved">
+      The room {{ lastRoom }} was saved with success!
+    </md-snackbar>
   </form>
 </template>
 
 <script>
-  import { validationMixin } from 'vuelidate';
-  import { required, minLength } from 'vuelidate/lib/validators';
+import { validationMixin } from 'vuelidate';
+import { required } from 'vuelidate/lib/validators';
 export default {
-  name: 'FormValidation',
+  name: 'edit-room-form',
   mixins: [validationMixin],
   props: {
-   name: { 
+    name: {
       type: String,
       required: false,
       default: '',
     },
-    sending: false,
+    sending: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    onClose: {
+      type: Function,
+      require: true,
+    },
     onSubmit: {
       type: Function,
       require: true,
@@ -61,20 +73,19 @@ export default {
       form: {
         room: '',
       },
-      
       lastRoom: '',
       roomSaved: false,
-    }
+    };
   },
   validations: {
     form: {
       room: {
         required,
         normalizer(value) {
-          let str= value.toString();
-          this.value =str.trim();
+          let str = value.toString();
+          this.value = str.trim();
           return this.value;
-        }
+        },
       },
     },
   },
@@ -92,13 +103,12 @@ export default {
       this.form.room = null;
     },
     editRoom() {
-    //  this.sending = true;
-      this.lastRoom = this.form.room;      
+      this.lastRoom = this.form.room;
       this.onSubmit({ name: this.lastRoom });
       this.clearForm();
       this.roomSaved = true;
     },
-     validateRoom() {
+    validateRoom() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
         this.editRoom();
