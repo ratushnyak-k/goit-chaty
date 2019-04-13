@@ -1,10 +1,12 @@
 <template>
   <div>
-    <div v-if="messages.length">
-      <div class="message" v-for="message in messages" :key="message.createdAt">
-        {{ message.value }}
-      </div>
-    </div>
+    <md-list v-if="messages.length">
+      <chat-item
+        :message="message"
+        v-for="message in messages"
+        :key="message.createdAt"
+      ></chat-item>
+    </md-list>
     <p v-else>No messages yet</p>
     <chat-input :onSubmit="onSubmit"></chat-input>
   </div>
@@ -12,11 +14,13 @@
 
 <script>
 import ChatInput from '@/components/chat-input.vue';
+import ChatItem from '@/components/chat-item.vue';
 
 export default {
   name: 'room-detail',
   components: {
     ChatInput,
+    ChatItem,
   },
   data() {
     return {
