@@ -13,11 +13,9 @@
   </md-list-item>
 </template>
  <script>
-import ChatInput from '@/components/chat-input.vue';
 export default {
   name: 'chat-item',
-  component: { ChatInput },
-  props: {
+    props: {
     message: {
       type: Object,
       required: true,
