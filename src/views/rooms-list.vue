@@ -79,7 +79,7 @@
 }
 .md-list {
   overflow-x: auto;
-  }
+}
 .md-raised {
   margin-top: auto;
 }
@@ -142,7 +142,7 @@ export default {
     onAddRoom() {
       this.showDialogType = 'add';
       this.dialogData = {
-        onSubmit: (formData) => {
+        onSubmit: () => {
           this.onCloseDialog();
         },
         name: '',
@@ -152,7 +152,7 @@ export default {
       this.showDialogType = 'edit';
       this.dialogData = {
         name: 'Room name',
-        onSubmit: (formData) => {
+        onSubmit: () => {
           this.onCloseDialog();
         },
       };
