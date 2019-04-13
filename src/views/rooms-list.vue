@@ -4,8 +4,20 @@
       <md-app-toolbar class="md-primary">
         <span class="md-title">ROOM</span>
       </md-app-toolbar>
-
       <md-app-drawer md-permanent="full">
+        <md-list>
+          <md-list-item>
+            <md-avatar class="md-avatar-icon md-large md-accent">
+              <md-ripple>{{ avatarName }}</md-ripple>
+            </md-avatar>
+            <div class="md-list-item-text">
+              <div class="inform_creator">
+                <b>{{ fullName }}</b>
+              </div>
+            </div>
+          </md-list-item>
+        </md-list>
+
         <md-toolbar class="md-transparent" md-elevation="0">
           Rooms
           <md-button class="md-icon-button" @click="onAddRoom">
@@ -21,9 +33,8 @@
             :onEditClick="onEditRoom"
             :onDeleteClick="onDeleteRoom"
             showActionButtons
+            >{{ room.name }}</room-item
           >
-            {{ room.name }}
-          </room-item>
         </md-list>
         <md-button class="md-raised md-accent">Logout</md-button>
       </md-app-drawer>
@@ -68,8 +79,7 @@
 }
 .md-list {
   overflow-x: auto;
-  height: 100%;
-}
+  }
 .md-raised {
   margin-top: auto;
 }
@@ -92,6 +102,10 @@ export default {
       { id: 2, name: 'Room name 2', creatorId: 2 },
       { id: 3, name: 'Room name 3', creatorId: 3 },
     ],
+    user: {
+      firstName: 'John',
+      lastName: 'Doe',
+    },
   }),
   computed: {
     showAddEditDialog: {
@@ -110,7 +124,20 @@ export default {
         this.showDialogType = value;
       },
     },
+    fullName() {
+      if (!this.user) {
+        return null;
+      }
+      return this.user.firstName + ' ' + this.user.lastName;
+    },
+    avatarName() {
+      if (!this.user) {
+        return null;
+      }
+      return this.user.firstName[0] + this.user.lastName[0];
+    },
   },
+
   methods: {
     onAddRoom() {
       this.showDialogType = 'add';
