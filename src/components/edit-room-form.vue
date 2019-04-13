@@ -31,7 +31,7 @@
           Close
         </md-button>
         <md-button type="submit" class="md-primary" :disabled="sending"
-        >{{ name ? 'Edit' : 'Add' }} Room</md-button
+          >{{ name ? 'Edit' : 'Add' }} Room</md-button
         >
       </md-card-actions>
     </md-card>
@@ -43,86 +43,86 @@
 </template>
 
 <script>
-  import { validationMixin } from 'vuelidate';
-  import { required } from 'vuelidate/lib/validators';
-  export default {
-    name: 'edit-room-form',
-    mixins: [validationMixin],
-    props: {
-      name: {
-        type: String,
-        required: false,
-        default: '',
-      },
-      sending: {
-        type: Boolean,
-        required: false,
-        default: false,
-      },
-      onClose: {
-        type: Function,
-        require: true,
-      },
-      onSubmit: {
-        type: Function,
-        require: true,
-      },
+import { validationMixin } from 'vuelidate';
+import { required } from 'vuelidate/lib/validators';
+export default {
+  name: 'edit-room-form',
+  mixins: [validationMixin],
+  props: {
+    name: {
+      type: String,
+      required: false,
+      default: '',
     },
-    data() {
-      return {
-        form: {
-          room: '',
-        },
-        lastRoom: '',
-        roomSaved: false,
-      };
+    sending: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
-    validations: {
+    onClose: {
+      type: Function,
+      require: true,
+    },
+    onSubmit: {
+      type: Function,
+      require: true,
+    },
+  },
+  data() {
+    return {
       form: {
-        room: {
-          required,
-          normalizer(value) {
-            let str = value.toString();
-            this.value = str.trim();
-            return this.value;
-          },
+        room: this.name,
+      },
+      lastRoom: '',
+      roomSaved: false,
+    };
+  },
+  validations: {
+    form: {
+      room: {
+        required,
+        normalizer(value) {
+          let str = value.toString();
+          this.value = str.trim();
+          return this.value;
         },
       },
     },
-    methods: {
-      getValidationClass(fieldName) {
-        const field = this.$v.form[fieldName];
-        if (field) {
-          return {
-            'md-invalid': field.$invalid && field.$dirty,
-          };
-        }
-      },
-      clearForm() {
-        this.$v.$reset();
-        this.form.room = null;
-      },
-      editRoom() {
-        this.lastRoom = this.form.room;
-        this.onSubmit({ name: this.lastRoom });
-        this.clearForm();
-        this.roomSaved = true;
-      },
-      validateRoom() {
-        this.$v.$touch();
-        if (!this.$v.$invalid) {
-          this.editRoom();
-        }
-      },
+  },
+  methods: {
+    getValidationClass(fieldName) {
+      const field = this.$v.form[fieldName];
+      if (field) {
+        return {
+          'md-invalid': field.$invalid && field.$dirty,
+        };
+      }
     },
-  };
+    clearForm() {
+      this.$v.$reset();
+      this.form.room = null;
+    },
+    editRoom() {
+      this.lastRoom = this.form.room;
+      this.onSubmit({ name: this.lastRoom });
+      this.clearForm();
+      this.roomSaved = true;
+    },
+    validateRoom() {
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        this.editRoom();
+      }
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-  .md-progress-bar {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-  }
+.md-progress-bar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+}
 </style>
