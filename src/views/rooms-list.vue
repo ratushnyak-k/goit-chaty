@@ -7,32 +7,58 @@
       <md-app-drawer md-permanent="full">
         <md-list>
           <md-list-item>
-          <md-avatar class="md-avatar-icon md-large md-accent">
-            <md-ripple>{{ avatarName }}</md-ripple>
-          </md-avatar>
-          <div class="md-list-item-text">
-            <div class="inform_creator">
-              <b> {{ fullName }}</b>
+            <md-avatar class="md-avatar-icon md-large md-accent">
+              <md-ripple>{{ avatarName }}</md-ripple>
+            </md-avatar>
+            <div class="md-list-item-text">
+              <div class="inform_creator">
+                <b>{{ fullName }}</b>
+              </div>
             </div>
-          </div>
-        </md-list-item>
+          </md-list-item>
         </md-list>
-        
+
         <md-toolbar class="md-transparent" md-elevation="0">
           Rooms
-          <md-button class="md-icon-button">
+          <md-button class="md-icon-button" @click="onAddRoom">
             <md-icon>add</md-icon>
           </md-button>
         </md-toolbar>
         <md-divider></md-divider>
 
         <md-list>
-          <room-item v-for="room in rooms" :key="room.id">{{ room.name }}</room-item>
+          <room-item
+            v-for="room in rooms"
+            :key="room.id"
+            :onEditClick="onEditRoom"
+            :onDeleteClick="onDeleteRoom"
+            showActionButtons
+            >{{ room.name }}</room-item
+          >
         </md-list>
         <md-button class="md-raised md-accent">Logout</md-button>
       </md-app-drawer>
 
-      <md-app-content></md-app-content>
+      <md-app-content>
+        <md-dialog-confirm
+          v-if="showDeleteDialog"
+          :md-active.sync="showDeleteDialog"
+          md-title="Are you sure?"
+          md-content="Do you really want to remove this room?"
+          md-confirm-text="Delete"
+          md-cancel-text="Cancel"
+          @md-cancel="onCloseDialog"
+          @md-confirm="dialogData.onSubmit"
+        />
+
+        <md-dialog :md-active.sync="showAddEditDialog" v-if="showAddEditDialog">
+          <edit-room-form
+            :onSubmit="dialogData.onSubmit"
+            :onClose="onCloseDialog"
+            :name="dialogData.name"
+          ></edit-room-form>
+        </md-dialog>
+      </md-app-content>
     </md-app>
   </div>
 </template>
@@ -53,36 +79,51 @@
 }
 .md-list {
   overflow-x: auto;
-  height: 100%;
-}
+  }
 .md-raised {
   margin-top: auto;
 }
-
 </style>
 
 <script>
-import RoomItem from '@/components/room-item.vue';
-
+import RoomItem from '@/components/room-item';
+import EditRoomForm from '@/components/edit-room-form';
 export default {
   name: 'rooms-list',
   components: {
     RoomItem,
+    EditRoomForm,
   },
-  data() {
-    return {
-      rooms: [
-        { id: 1, name: 'Room name 1', creatorId: 1 },
-        { id: 2, name: 'Room name 2', creatorId: 2 },
-        { id: 3, name: 'Room name 3', creatorId: 3 },
-      ],
-      user: {
-        firstName: 'John',
-        lastName: 'Doe',
-      },
-    };
-  },
+  data: () => ({
+    showDialogType: '',
+    dialogData: {},
+    rooms: [
+      { id: 1, name: 'Room name 1', creatorId: 1 },
+      { id: 2, name: 'Room name 2', creatorId: 2 },
+      { id: 3, name: 'Room name 3', creatorId: 3 },
+    ],
+    user: {
+      firstName: 'John',
+      lastName: 'Doe',
+    },
+  }),
   computed: {
+    showAddEditDialog: {
+      get() {
+        return ['add', 'edit'].includes(this.showDialogType);
+      },
+      set(value) {
+        this.showDialogType = value;
+      },
+    },
+    showDeleteDialog: {
+      get() {
+        return this.showDialogType === 'delete';
+      },
+      set(value) {
+        this.showDialogType = value;
+      },
+    },
     fullName() {
       if (!this.user) {
         return null;
@@ -94,6 +135,40 @@ export default {
         return null;
       }
       return this.user.firstName[0] + this.user.lastName[0];
+    },
+  },
+
+  methods: {
+    onAddRoom() {
+      this.showDialogType = 'add';
+      this.dialogData = {
+        onSubmit: (formData) => {
+          this.onCloseDialog();
+        },
+        name: '',
+      };
+    },
+    onEditRoom() {
+      this.showDialogType = 'edit';
+      this.dialogData = {
+        name: 'Room name',
+        onSubmit: (formData) => {
+          this.onCloseDialog();
+        },
+      };
+    },
+    onDeleteRoom() {
+      this.showDialogType = 'delete';
+      this.dialogData = {
+        name: 'Room name',
+        onSubmit: () => {
+          this.onCloseDialog();
+        },
+      };
+    },
+    onCloseDialog() {
+      this.showDialogType = '';
+      this.dialogData = {};
     },
   },
 };
