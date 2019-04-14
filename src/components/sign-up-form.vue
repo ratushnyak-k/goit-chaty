@@ -1,8 +1,7 @@
 <template>
   <form novalidate @submit.prevent="validateUser">
-    <md-card>
+    <md-card class="md-layout-item">
       <md-card-content>
-        <div class="md-small-size-50">
           <md-field :class="getValidationClass('firstName')">
             <label for="first-name">First Name</label>
             <md-input
@@ -16,8 +15,7 @@
               The first name is required
             </span>
           </md-field>
-        </div>
-        <div class=" md-small-size-100">
+    
           <md-field :class="getValidationClass('lastName')">
             <label for="last-name">last Name</label>
             <md-input
@@ -31,7 +29,7 @@
               The last name is required
             </span>
           </md-field>
-        </div>
+     
         <md-field :class="getValidationClass('email')">
           <label for="email">Email</label>
           <md-input
@@ -136,6 +134,7 @@ export default {
 };
 </script>
 
+
 <style lang="scss" scoped>
 .md-progress-bar {
   position: absolute;
@@ -143,4 +142,10 @@ export default {
   right: 0;
   left: 0;
 }
+.md-card {
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>
+
+
