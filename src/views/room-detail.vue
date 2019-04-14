@@ -11,20 +11,9 @@
       <p v-else>No messages yet</p>
     </div>
     <chat-input :onSubmit="onSubmit"></chat-input>
-    <md-progress-bar md-mode="indeterminate" v-if="loading" />
+    <md-progress-bar md-mode="indeterminate" class="md-accent" v-if="loading" :loading="loading" />
   </div>
 </template>
-
-<style lang="css" scoped>
-.room-scr {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-.form-content {
-  margin-top: auto;
-}
-</style>
 
 <script>
 import ChatInput from '@/components/chat-input.vue';
@@ -61,19 +50,22 @@ export default {
       this.loading = true;
       roomsCollection
         .doc(this.$route.params.id)
-        .collection('messages')
-        .orderBy('createdAt')
-        .onSnapshot((snapshot) => {
-          this.messages = [];
-          snapshot.forEach((s) => {
-            this.messages.push({ ...s.data(), id: s.id });
-          });
-
-          const scroller = this.$el.querySelector('.form-content');
-          setTimeout(() => {
-            scroller.scrollTo(0, scroller.scrollHeight);
-          });
-          this.loading = false;
+        .get()
+        .then((data) => {
+          if (data.exists) {
+            data.ref
+              .collection('messages')
+              .orderBy('createdAt')
+              .onSnapshot((snapshot) => {
+                this.messages = [];
+                snapshot.forEach((s) => {
+                  this.messages.push({ ...s.data(), id: s.id });
+                });
+                this.loading = false;
+              });
+          } else {
+            this.$router.replace('/rooms');
+          }
         });
     },
     onSubmit(data) {
@@ -94,13 +86,22 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.md-app-scroller {
+  position: relative;
+}
 .md-progress-bar {
-  position: absolute;
+  position: absolute !important;
   top: 0;
   right: 0;
   left: 0;
 }
+.room-scr {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .form-content {
   overflow: auto;
   margin-top: auto;
