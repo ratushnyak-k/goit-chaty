@@ -5,7 +5,8 @@
 </template>
 
 <style>
-body, #app {
+body,
+#app {
   height: 100%;
 }
 </style>

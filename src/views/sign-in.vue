@@ -25,7 +25,7 @@ export default {
     showSnack: false,
   }),
   methods: {
-    onSubmit(data, clear) {
+    onSubmit(data) {
       this.sending = true;
       firebase
         .auth()
