@@ -114,15 +114,6 @@ export default {
       rooms: roomsCollection.orderBy('name', 'asc'),
     };
   },
-  add({ name }) {
-    roomsCollection.add({ name, creatorId: this.userId });
-  },
-  update({ id, name }) {
-    roomsCollection.doc(id).set({ name });
-  },
-  delete({ id }) {
-    roomsCollection.doc(id).delete();
-  },
   computed: {
     showAddEditDialog: {
       get() {
@@ -154,20 +145,29 @@ export default {
     },
   },
   methods: {
+    add({ name }) {
+      roomsCollection.add({ name, creatorId: this.userId });
+    },
+    update({ id, name }) {
+      roomsCollection.doc(id).set({ name });
+    },
+    delete({ id }) {
+      roomsCollection.doc(id).delete();
+    },
     onAddRoom() {
       this.showDialogType = 'add';
       this.dialogData = {
-        onSubmit: () => {
+        onSubmit: ({ name }) => {
           this.onCloseDialog();
           this.add({ name });
         },
         name: '',
       };
     },
-    onEditRoom({ id }) {
+    onEditRoom({ id, name }) {
       this.showDialogType = 'edit';
       this.dialogData = {
-        name: 'Room name',
+        name,
         onSubmit: ({ name }) => {
           this.onCloseDialog();
           this.update({ id, name });
