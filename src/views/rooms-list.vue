@@ -99,7 +99,7 @@
 import RoomItem from '@/components/room-item';
 import EditRoomForm from '@/components/edit-room-form';
 import firebase from 'firebase/app';
-import { roomsCollection } from '../main.js';
+import { roomsCollection, usersCollection } from '../main.js';
 export default {
   name: 'rooms-list',
   components: {
@@ -110,15 +110,13 @@ export default {
     showDialogType: '',
     dialogData: {},
     rooms: [],
-    user: {
-      firstName: 'John',
-      lastName: 'Doe',
-    },
+    user: null,
     userId: firebase.auth().currentUser.uid,
   }),
   firestore() {
     return {
       rooms: roomsCollection.orderBy('name', 'asc'),
+      user: usersCollection.doc(this.userId)  
     };
   },
   computed: {
