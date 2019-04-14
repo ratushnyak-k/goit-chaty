@@ -1,17 +1,30 @@
 <template>
-  <div>
-    <md-list v-if="messages.length">
-      <chat-item
-        :message="message"
-        v-for="message in messages"
-        :key="message.createdAt"
-      ></chat-item>
-    </md-list>
-    <p v-else>No messages yet</p>
+  <div class="room-scr">
+    <div class="form-content">
+      <md-list v-if="messages.length">
+        <chat-item
+          :message="message"
+          v-for="message in messages"
+          :key="message.createdAt"
+        ></chat-item>
+      </md-list>
+      <p v-else>No messages yet</p>
+    </div>
     <chat-input :onSubmit="onSubmit"></chat-input>
     <md-progress-bar md-mode="indeterminate" v-if="loading" />
   </div>
 </template>
+
+<style lang="css" scoped>
+.room-scr {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.form-content {
+  margin-top: auto;
+}
+</style>
 
 <script>
 import ChatInput from '@/components/chat-input.vue';
@@ -55,6 +68,11 @@ export default {
           snapshot.forEach((s) => {
             this.messages.push({ ...s.data(), id: s.id });
           });
+
+          const scroller = this.$el.querySelector('.form-content');
+          setTimeout(() => {
+            scroller.scrollTo(0, scroller.scrollHeight);
+          });
           this.loading = false;
         });
     },
@@ -66,6 +84,10 @@ export default {
           ...data,
           creatorId: this.user.id,
           createdAt: +new Date(),
+        })
+        .then(() => {
+          const scroller = this.$el.querySelector('.form-content');
+          scroller.scrollTo(0, scroller.scrollHeight);
         });
     },
   },
@@ -78,5 +100,10 @@ export default {
   top: 0;
   right: 0;
   left: 0;
+}
+.form-content {
+  overflow: auto;
+  margin-top: auto;
+  max-height: calc(100% - 80px);
 }
 </style>

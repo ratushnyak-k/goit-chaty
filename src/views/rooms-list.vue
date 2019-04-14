@@ -96,6 +96,7 @@
 }
 .md-raised {
   margin-top: auto;
+  margin-bottom: 40px;
 }
 .str_scr {
   position: absolute;
