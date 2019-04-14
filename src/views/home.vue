@@ -1,3 +1,61 @@
 <template>
-  <h1>Here will be our description</h1>
+  <div class="page">
+    <div class="form">
+      <h1>Cours</h1>
+      <h2>List of Students</h2>
+      <md-list class="md-list">
+        <md-list-item class="md-list-item" v-for="item in students" :key="item">{{ item }}</md-list-item>
+      </md-list>
+      <h2>List of Technology</h2>
+      <md-list class="md-list">
+        <md-list-item v-for="item in technology" :key="item">{{ item }}</md-list-item>
+      </md-list>
+    </div>
+  </div>
 </template>
+
+<script>
+export default {
+  name: 'ListTypes',
+  methods: {
+    alert() {
+      window.alert('...');
+    },
+  },
+  data() {
+    return {
+      students: [
+        'Губарь Сергей',
+        'Федько Евгений',
+        'Колганов Артем',
+        'Черина Юлия',
+        'Вощевская Светлана',
+      ],
+      technology: [
+        'firebase',
+        'lodash',
+        'vue',
+        'vue-material',
+        'vue-router',
+        'vuefire',
+        'vuelidate',
+        'prettier',
+        'vue-cli',
+      ],
+    };
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.md-list-item {
+  width: 600px;
+}
+</style>
