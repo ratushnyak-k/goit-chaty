@@ -1,11 +1,24 @@
 <template>
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed">
-      <md-app-toolbar class="md-primary">
+      <md-app-toolbar class="md-primary" v-if="$route.params.id">
         <span class="md-title">ROOM</span>
       </md-app-toolbar>
 
       <md-app-drawer md-permanent="full">
+        <md-list>
+          <md-list-item>
+            <md-avatar class="md-avatar-icon md-large md-accent">
+              <md-ripple>{{ avatarName }}</md-ripple>
+            </md-avatar>
+            <div class="md-list-item-text">
+              <div class="inform_creator">
+                <b>{{ fullName }}</b>
+              </div>
+            </div>
+          </md-list-item>
+        </md-list>
+
         <md-toolbar class="md-transparent" md-elevation="0">
           Rooms
           <md-button class="md-icon-button" @click="onAddRoom">
@@ -23,8 +36,7 @@
             showActionButtons
             :data="room"
           />
-          
-          
+
         </md-list>
         <md-button class="md-raised md-accent">Logout</md-button>
       </md-app-drawer>
@@ -48,6 +60,8 @@
             :name="dialogData.name"
           ></edit-room-form>
         </md-dialog>
+
+        <router-view></router-view>
       </md-app-content>
     </md-app>
   </div>
@@ -69,7 +83,6 @@
 }
 .md-list {
   overflow-x: auto;
-  height: 100%;
 }
 .md-raised {
   margin-top: auto;
@@ -93,6 +106,10 @@ export default {
       { id: 2, name: 'Room name 2', creatorId: 2 },
       { id: 3, name: 'Room name 3', creatorId: 3 },
     ],
+    user: {
+      firstName: 'John',
+      lastName: 'Doe',
+    },
   }),
   computed: {
     showAddEditDialog: {
@@ -111,12 +128,24 @@ export default {
         this.showDialogType = value;
       },
     },
+    fullName() {
+      if (!this.user) {
+        return null;
+      }
+      return this.user.firstName + ' ' + this.user.lastName;
+    },
+    avatarName() {
+      if (!this.user) {
+        return null;
+      }
+      return this.user.firstName[0] + this.user.lastName[0];
+    },
   },
   methods: {
     onAddRoom() {
       this.showDialogType = 'add';
       this.dialogData = {
-        onSubmit: (formData) => {
+        onSubmit: () => {
           this.onCloseDialog();
         },
         name: '',
@@ -126,7 +155,7 @@ export default {
       this.showDialogType = 'edit';
       this.dialogData = {
         name: 'Room name',
-        onSubmit: (formData) => {
+        onSubmit: () => {
           this.onCloseDialog();
         },
       };
