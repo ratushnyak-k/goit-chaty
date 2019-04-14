@@ -17,7 +17,7 @@
         </md-field>
 
         <md-field :class="getValidationClass('lastName')">
-          <label for="last-name">last Name</label>
+          <label for="last-name">Last Name</label>
           <md-input
             name="last-name"
             id="last-name"
