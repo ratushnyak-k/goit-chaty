@@ -1,17 +1,30 @@
 <template>
-  <div>
-    <md-list v-if="messages.length">
-      <chat-item
-        :message="message"
-        v-for="message in messages"
-        :key="message.createdAt"
-      ></chat-item>
-    </md-list>
-    <p v-else>No messages yet</p>
+  <div class="room-scr">
+    <div class="form-content">
+      <md-list v-if="messages.length">
+        <chat-item
+          :message="message"
+          v-for="message in messages"
+          :key="message.createdAt"
+        ></chat-item>
+      </md-list>
+      <p v-else>No messages yet</p>
+    </div>
     <chat-input :onSubmit="onSubmit"></chat-input>
     <md-progress-bar md-mode="indeterminate" v-if="loading" />
   </div>
 </template>
+
+<style lang="css" scoped>
+.room-scr {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.form-content {
+  margin-top: auto;
+}
+</style>
 
 <script>
 import ChatInput from '@/components/chat-input.vue';
