@@ -60,6 +60,11 @@
           ></edit-room-form>
         </md-dialog>
 
+        <starter-screen
+          :onAddRoom="onAddRoom"
+          class="str-screen"
+          v-if="!$route.params.id"
+        ></starter-screen>
         <router-view></router-view>
       </md-app-content>
     </md-app>
@@ -86,16 +91,25 @@
 .md-raised {
   margin-top: auto;
 }
+.str-screen {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
 </style>
 
 <script>
 import RoomItem from '@/components/room-item';
 import EditRoomForm from '@/components/edit-room-form';
+import StarterScreen from '@/components/starter-screen';
 export default {
   name: 'rooms-list',
   components: {
     RoomItem,
     EditRoomForm,
+    StarterScreen,
   },
   data: () => ({
     showDialogType: '',
