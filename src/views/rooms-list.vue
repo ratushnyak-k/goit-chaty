@@ -44,7 +44,7 @@
             />
           </md-list-item>
         </md-list>
-        <md-button class="md-raised md-accent">Logout</md-button>
+        <md-button class="md-raised md-accent" @click="logOut">Logout</md-button>
       </md-app-drawer>
 
       <md-app-content>
@@ -156,6 +156,9 @@ export default {
   },
 
   methods: {
+    logOut() {
+      firebase.auth().signOut();
+    },
     add({ name }) {
       roomsCollection.add({ name, creatorId: this.userId });
     },
