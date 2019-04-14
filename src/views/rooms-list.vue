@@ -3,10 +3,12 @@
     <md-app md-waterfall md-mode="fixed">
       <md-app-toolbar class="md-primary" v-if="$route.params.id">
         <room-item
+          v-if="activeRoom"
           :onEditClick="onEditRoom"
           :onDeleteClick="onDeleteRoom"
           showActionButtons
           :data="activeRoom"
+          :key="activeRoom.id"
         />
       </md-app-toolbar>
 
@@ -149,7 +151,7 @@ export default {
       return this.user.firstName[0] + this.user.lastName[0];
     },
     activeRoom() {
-      return this.rooms.find((item) => item.id === +this.$route.params.id);
+      return this.rooms.find((item) => item.id === this.$route.params.id);
     },
   },
 

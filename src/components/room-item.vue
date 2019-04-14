@@ -2,7 +2,7 @@
   <fragment>
     <div class="md-list-item-text">
       <router-link tag="div" :to="linkTo">{{ data.name }}</router-link>
-      <!-- <span class="" {{creatorFullName}}></span> -->
+      <span class="creator-name">{{creatorFullName}}</span>
     </div>
     <div v-if="showActionButtons" class="action-buttons">
       <md-button class="md-icon-button md-list-action" @click="onEditClick(data)">
@@ -67,6 +67,9 @@ export default {
 <style scoped lang="scss">
 .md-list-item {
   .action-buttons {
+    display: none;
+  }
+  .creator-name {
     display: none;
   }
   .router-link-active {
