@@ -40,7 +40,7 @@ export default {
   },
   firestore() {
     return {
-      creator: usersCollection.doc(this.usersId),
+      creator: usersCollection.doc(this.userId),
     };
   },
   computed: {
@@ -48,7 +48,7 @@ export default {
       return `/rooms/${this.data.id}`;
     },
     showActionButtons() {
-      if (this.creatorId === this.usersId) {
+      if (this.creatorId === this.userId) {
         return true;
       }
     },
