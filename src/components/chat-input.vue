@@ -2,7 +2,7 @@
   <form @submit.prevent="addMessage">
     <md-field>
       <label for="text_message">Type message...</label>
-      <md-input name="text_message" type="text" v-model.trim="value" />
+      <md-input name="text_message" type="text" v-model.trim="value" :disabled="loading" />
     </md-field>
   </form>
 </template>
@@ -14,6 +14,11 @@ export default {
     onSubmit: {
       type: Function,
       required: true,
+    },
+    loading: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   data() {
