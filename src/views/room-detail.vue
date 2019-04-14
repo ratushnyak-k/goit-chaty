@@ -68,6 +68,11 @@ export default {
           snapshot.forEach((s) => {
             this.messages.push({ ...s.data(), id: s.id });
           });
+
+          const scroller = this.$el.querySelector('.form-content');
+          setTimeout(() => {
+            scroller.scrollTo(0, scroller.scrollHeight);
+          });
           this.loading = false;
         });
     },
@@ -79,6 +84,10 @@ export default {
           ...data,
           creatorId: this.user.id,
           createdAt: +new Date(),
+        })
+        .then(() => {
+          const scroller = this.$el.querySelector('.form-content');
+          scroller.scrollTo(0, scroller.scrollHeight);
         });
     },
   },
@@ -91,5 +100,10 @@ export default {
   top: 0;
   right: 0;
   left: 0;
+}
+.form-content {
+  overflow: auto;
+  margin-top: auto;
+  max-height: calc(100% - 80px);
 }
 </style>
