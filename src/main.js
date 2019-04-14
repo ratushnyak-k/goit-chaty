@@ -2,6 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import 'firebase/auth';
 import router from './router';
 import VueMaterial from 'vue-material';
 import 'vue-material/dist/vue-material.min.css';
