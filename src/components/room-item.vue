@@ -1,6 +1,8 @@
 <template>
-  <md-list-item>
-    <router-link :to="linkTo">{{ data.name }}</router-link>
+  <fragment>
+    <div class="md-list-item-text">
+      <router-link tag="div" :to="linkTo">{{ data.name }}</router-link>
+    </div>
     <div v-if="showActionButtons" class="action-buttons">
       <md-button class="md-icon-button md-list-action" @click="onEditClick">
         <md-icon>edit</md-icon>
@@ -9,22 +11,18 @@
         <md-icon>delete</md-icon>
       </md-button>
     </div>
-  </md-list-item>
+  </fragment>
 </template>
 
 <script>
+import firebase from 'firebase/app'
+import { usersCollection } from '@/main.js';
 export default {
   name: 'room-item',
   props: {
     data: {
       type: Object,
       required: true,
-    },
-
-    showActionButtons: {
-      type: Boolean,
-      required: false,
-      default: false,
     },
     onEditClick: {
       type: Function,
@@ -37,23 +35,43 @@ export default {
       default: () => {},
     },
   },
+  data() {
+    return { userId: firebase.auth().currentUser.uid };
+  },
+  firestore() {
+    return {
+      creator: usersCollection.doc(this.userId),
+    };
+  },
   computed: {
     linkTo() {
       return `/rooms/${this.data.id}`;
     },
+    showActionButtons() {
+      if (this.creatorId === this.userId) {
+        return true;
+      }
+    },
+    creatorFullName() {},
   },
 };
 </script>
 
 <style scoped lang="scss">
-.action-buttons {
-  display: none;
-}
 .md-list-item {
+  .action-buttons {
+    display: none;
+  }
+  .router-link-active {
+    color: var(--md-theme-default-primary);
+  }
   &:hover {
     .action-buttons {
       display: block;
     }
+  }
+  .md-list-item-text {
+    cursor: pointer;
   }
 }
 </style>
