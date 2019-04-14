@@ -2,6 +2,7 @@
   <fragment>
     <div class="md-list-item-text">
       <router-link tag="div" :to="linkTo">{{ data.name }}</router-link>
+      <!-- <span class="" {{creatorFullName}}></span> -->
     </div>
     <div v-if="showActionButtons" class="action-buttons">
       <md-button class="md-icon-button md-list-action" @click="onEditClick">
@@ -36,11 +37,14 @@ export default {
     },
   },
   data() {
-    return { userId: firebase.auth().currentUser.uid};
+    return {
+      userId: firebase.auth().currentUser.uid,
+      creator: null,
+    };
   },
   firestore() {
     return {
-      creator: usersCollection.doc(this.userId),
+      creator: usersCollection.doc(this.data.creatorId),
     };
   },
   computed: {
@@ -48,11 +52,14 @@ export default {
       return `/rooms/${this.data.id}`;
     },
     showActionButtons() {
-      if (this.creatorId === this.userId) {
-        return true;
-      }
+      return this.data.creatorId === this.userId;
     },
-    creatorFullName() {},
+    creatorFullName() {
+      if (!this.creator) {
+        return null;
+      }
+      return `${this.creator.firstName} ${this.creator.lastName}`;
+    },
   },
 };
 </script>
