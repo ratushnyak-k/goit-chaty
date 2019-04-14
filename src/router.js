@@ -4,6 +4,7 @@ import Home from './views/home.vue';
 import RoomsList from './views/rooms-list.vue';
 import RoomDetail from './views/room-detail.vue';
 import SignUp from './views/sign-up.vue';
+import SignIn from './views/sign-in.vue';
 
 Vue.use(Router);
 
@@ -32,6 +33,11 @@ export default new Router({
       path: '/sign-up',
       name: 'sign-up',
       component: SignUp,
+    },
+    {
+      path: '/sign-in',
+      name: 'sign-in',
+      component: SignIn,
     },
   ],
 });

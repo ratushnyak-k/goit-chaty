@@ -107,4 +107,8 @@ export default {
   right: 0;
   left: 0;
 }
+.md-card {
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>
