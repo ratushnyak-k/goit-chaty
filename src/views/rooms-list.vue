@@ -4,6 +4,7 @@
       <md-app-toolbar class="md-primary" v-if="$route.params.id">
         <span class="md-title">ROOM</span>
       </md-app-toolbar>
+
       <md-app-drawer md-permanent="full">
         <md-list>
           <md-list-item>
@@ -33,8 +34,8 @@
             :onEditClick="onEditRoom"
             :onDeleteClick="onDeleteRoom"
             showActionButtons
-            >{{ room.name }}</room-item
-          >
+            :data="room"
+          />
         </md-list>
         <md-button class="md-raised md-accent">Logout</md-button>
       </md-app-drawer>
@@ -139,12 +140,11 @@ export default {
       return this.user.firstName[0] + this.user.lastName[0];
     },
   },
-
   methods: {
     onAddRoom() {
       this.showDialogType = 'add';
       this.dialogData = {
-        onSubmit: (formData) => {
+        onSubmit: () => {
           this.onCloseDialog();
         },
         name: '',
@@ -154,7 +154,7 @@ export default {
       this.showDialogType = 'edit';
       this.dialogData = {
         name: 'Room name',
-        onSubmit: (formData) => {
+        onSubmit: () => {
           this.onCloseDialog();
         },
       };
