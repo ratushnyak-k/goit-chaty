@@ -96,6 +96,8 @@
 <script>
 import RoomItem from '@/components/room-item';
 import EditRoomForm from '@/components/edit-room-form';
+import firebase from 'firebase/app';
+import { roomsCollection } from '../main.js';
 export default {
   name: 'rooms-list',
   components: {
@@ -105,16 +107,18 @@ export default {
   data: () => ({
     showDialogType: '',
     dialogData: {},
-    rooms: [
-      { id: 1, name: 'Room name 1', creatorId: 1 },
-      { id: 2, name: 'Room name 2', creatorId: 2 },
-      { id: 3, name: 'Room name 3', creatorId: 3 },
-    ],
+    rooms: [],
     user: {
       firstName: 'John',
       lastName: 'Doe',
     },
+    userId: firebase.auth().currentUser.uid,
   }),
+  firestore() {
+    return {
+      rooms: roomsCollection.orderBy('name', 'asc'),
+    };
+  },
   computed: {
     showAddEditDialog: {
       get() {
@@ -150,30 +154,42 @@ export default {
   },
 
   methods: {
+    add({ name }) {
+      roomsCollection.add({ name, creatorId: this.userId });
+    },
+    update({ id, name }) {
+      roomsCollection.doc(id).set({ name });
+    },
+    delete({ id }) {
+      roomsCollection.doc(id).delete();
+    },
     onAddRoom() {
       this.showDialogType = 'add';
       this.dialogData = {
-        onSubmit: () => {
+        onSubmit: ({ name }) => {
           this.onCloseDialog();
+          this.add({ name });
         },
         name: '',
       };
     },
-    onEditRoom() {
+    onEditRoom({ id, name }) {
       this.showDialogType = 'edit';
       this.dialogData = {
-        name: 'Room name',
-        onSubmit: () => {
+        name,
+        onSubmit: ({ name }) => {
           this.onCloseDialog();
+          this.update({ id, name });
         },
       };
     },
-    onDeleteRoom() {
+    onDeleteRoom({ id }) {
       this.showDialogType = 'delete';
       this.dialogData = {
         name: 'Room name',
         onSubmit: () => {
           this.onCloseDialog();
+          this.delete({ id });
         },
       };
     },

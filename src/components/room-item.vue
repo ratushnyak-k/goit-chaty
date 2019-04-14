@@ -5,10 +5,10 @@
       <!-- <span class="" {{creatorFullName}}></span> -->
     </div>
     <div v-if="showActionButtons" class="action-buttons">
-      <md-button class="md-icon-button md-list-action" @click="onEditClick">
+      <md-button class="md-icon-button md-list-action" @click="onEditClick(data)">
         <md-icon>edit</md-icon>
       </md-button>
-      <md-button class="md-icon-button md-list-action" @click="onDeleteClick">
+      <md-button class="md-icon-button md-list-action" @click="onDeleteClick(data)">
         <md-icon>delete</md-icon>
       </md-button>
     </div>
