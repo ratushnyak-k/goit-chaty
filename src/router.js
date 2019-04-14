@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from './views/home.vue';
 import RoomsList from './views/rooms-list.vue';
 import RoomDetail from './views/room-detail.vue';
+import notFound from './views/not-found.vue';
 
 Vue.use(Router);
 
@@ -26,6 +27,11 @@ export default new Router({
           component: RoomDetail,
         },
       ],
+    },
+    {
+      path: '/not-found',
+      name: 'not-found',
+      component: notFound,
     },
   ],
 });
