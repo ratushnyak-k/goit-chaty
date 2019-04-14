@@ -1,37 +1,35 @@
 <template>
   <form novalidate @submit.prevent="validateUser">
-    <md-card>
+    <md-card class="md-layout-item">
       <md-card-content>
-        <div class="md-small-size-50">
-          <md-field :class="getValidationClass('firstName')">
-            <label for="first-name">First Name</label>
-            <md-input
-              name="first-name"
-              id="first-name"
-              autocomplete="given-name"
-              v-model="form.firstName"
-              :disabled="sending"
-            />
-            <span class="md-error" v-if="!$v.form.firstName.required">
-              The first name is required
-            </span>
-          </md-field>
-        </div>
-        <div class=" md-small-size-100">
-          <md-field :class="getValidationClass('lastName')">
-            <label for="last-name">last Name</label>
-            <md-input
-              name="last-name"
-              id="last-name"
-              autocomplete="family-name"
-              v-model="form.lastName"
-              :disabled="sending"
-            />
-            <span class="md-error" v-if="!$v.form.lastName.required">
-              The last name is required
-            </span>
-          </md-field>
-        </div>
+        <md-field :class="getValidationClass('firstName')">
+          <label for="first-name">First Name</label>
+          <md-input
+            name="first-name"
+            id="first-name"
+            autocomplete="given-name"
+            v-model="form.firstName"
+            :disabled="sending"
+          />
+          <span class="md-error" v-if="!$v.form.firstName.required">
+            The first name is required
+          </span>
+        </md-field>
+
+        <md-field :class="getValidationClass('lastName')">
+          <label for="last-name">last Name</label>
+          <md-input
+            name="last-name"
+            id="last-name"
+            autocomplete="family-name"
+            v-model="form.lastName"
+            :disabled="sending"
+          />
+          <span class="md-error" v-if="!$v.form.lastName.required">
+            The last name is required
+          </span>
+        </md-field>
+
         <md-field :class="getValidationClass('email')">
           <label for="email">Email</label>
           <md-input
@@ -142,5 +140,15 @@ export default {
   top: 0;
   right: 0;
   left: 0;
+}
+.md-card {
+  margin-left: auto;
+  margin-right: auto;
+}
+form {
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
 }
 </style>

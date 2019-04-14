@@ -3,3 +3,10 @@
     <router-view />
   </div>
 </template>
+
+<style>
+body,
+#app {
+  height: 100%;
+}
+</style>

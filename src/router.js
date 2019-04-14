@@ -4,10 +4,13 @@ import Home from './views/home.vue';
 import RoomsList from './views/rooms-list.vue';
 import RoomDetail from './views/room-detail.vue';
 import NotFound from './views/not-found.vue';
+import SignUp from './views/sign-up.vue';
+import SignIn from './views/sign-in.vue';
+import firebase from 'firebase/app';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -20,13 +23,29 @@ export default new Router({
       path: '/rooms',
       name: 'rooms',
       component: RoomsList,
+      meta: {
+        requiresAuth: true,
+      },
       children: [
         {
           path: ':id',
           name: 'room-detail',
           component: RoomDetail,
+          meta: {
+            requiresAuth: true,
+          },
         },
       ],
+    },
+    {
+      path: '/sign-up',
+      name: 'sign-up',
+      component: SignUp,
+    },
+    {
+      path: '/sign-in',
+      name: 'sign-in',
+      component: SignIn,
     },
     {
       path: '*',
@@ -34,4 +53,17 @@ export default new Router({
       component: NotFound,
     },
   ],
+});
+
+export default router;
+
+router.beforeEach((to, from, next) => {
+  firebase.auth().onAuthStateChanged((user) => {
+    const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+    if (requiresAuth && !user) {
+      next('/sign-in');
+    } else {
+      next();
+    }
+  });
 });
