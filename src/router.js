@@ -32,6 +32,6 @@ export default new Router({
       path: '/sign-up',
       name: 'sign-up',
       component: SignUp,
-   }
+    },
   ],
 });

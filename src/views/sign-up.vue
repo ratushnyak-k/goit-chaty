@@ -1,7 +1,7 @@
 <template>
     <div>
     <h1>Sign up</h1>
-    <SignUpForm :onSubmit="onSubmit"></SignUpForm>
+    <sign-up-form :onSubmit="onSubmit"></sign-up-form >
     <p>Already have an account?<a href=" ">Sign in</a></p>
     </div>
 </template>
@@ -9,7 +9,9 @@
 <script>
 import SignUpForm from '@/components/sign-up-form';
 export default {
-  name: 'SignUpForm',
+  components:{
+    SignUpForm
+  },
    data() {
     return {
       sending:false;
