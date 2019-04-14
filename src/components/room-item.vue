@@ -1,6 +1,6 @@
 <template>
   <md-list-item>
-    <slot></slot>
+    <router-link :to="linkTo">{{ data.name }}</router-link>
     <div v-if="showActionButtons" class="action-buttons">
       <md-button class="md-icon-button md-list-action" @click="onEditClick">
         <md-icon>edit</md-icon>
@@ -16,6 +16,11 @@
 export default {
   name: 'room-item',
   props: {
+    data: {
+      type: Object,
+      required: true,
+    },
+
     showActionButtons: {
       type: Boolean,
       required: false,
@@ -30,6 +35,11 @@ export default {
       type: Function,
       required: false,
       default: () => {},
+    },
+  },
+  computed: {
+    linkTo() {
+      return `/rooms/${this.data.id}`;
     },
   },
 };
