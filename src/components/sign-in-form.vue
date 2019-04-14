@@ -1,6 +1,6 @@
 <template>
   <form novalidate class="md-layout" @submit.prevent="validateUser">
-    <md-card class="md-layout-item md-size-50 md-small-size-100">
+    <md-card class="md-layout-item">
       <md-card-content>
         <md-field :class="getValidationClass('email')">
           <label for="email">Email</label>
@@ -35,7 +35,6 @@
         <md-button type="submit" class="md-raised md-primary" :disabled="sending">Submit</md-button>
       </md-card-actions>
     </md-card>
-
   </form>
 </template>
 
