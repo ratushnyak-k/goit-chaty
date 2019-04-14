@@ -60,5 +60,6 @@ export default {
 .md-body-1 {
   text-align: center;
 }
+
 </style>
 
