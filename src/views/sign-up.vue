@@ -1,8 +1,10 @@
 <template>
-   <div class="container">
+  <div class="container">
     <h1 class="md-title">Sign up</h1>
     <sign-up-form :onSubmit="onSubmit" :sending="sending"></sign-up-form>
-    <p class="md-body-1">Already have an account <router-link to="/sign-in">Sign in</router-link></p>
+    <p class="md-body-1">
+      Already have an account <router-link to="/sign-in">Sign in</router-link>
+    </p>
     <md-snackbar :md-active.sync="showSnack" md-persistent>
       <span>{{ error }}</span>
       <md-button class="md-primary" @click="showSnack = false">Close</md-button>
@@ -60,6 +62,4 @@ export default {
 .md-body-1 {
   text-align: center;
 }
-
 </style>
-
