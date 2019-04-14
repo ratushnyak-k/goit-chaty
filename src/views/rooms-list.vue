@@ -80,7 +80,7 @@
 }
 
 .md-drawer {
-  width: 230px;
+  width: 300px;
   max-width: calc(100vw - 125px);
 }
 .md-app-drawer {
@@ -116,7 +116,7 @@ export default {
   firestore() {
     return {
       rooms: roomsCollection.orderBy('name', 'asc'),
-      user: usersCollection.doc(this.userId)  
+      user: usersCollection.doc(this.userId)
     };
   },
   computed: {
