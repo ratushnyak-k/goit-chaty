@@ -13,6 +13,8 @@
   </md-list-item>
 </template>
 <script>
+import { usersCollection } from '../main';
+
 export default {
   name: 'chat-item',
   props: {
@@ -21,12 +23,12 @@ export default {
       required: true,
     },
   },
-  data() {
+  data: () => ({
+    user: null,
+  }),
+  firestore() {
     return {
-      user: {
-        firstName: 'John',
-        lastName: 'Doe',
-      },
+      user: usersCollection.doc(this.message.creatorId),
     };
   },
 

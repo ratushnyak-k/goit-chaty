@@ -84,7 +84,7 @@
 }
 
 .md-drawer {
-  width: 230px;
+  width: 300px;
   max-width: calc(100vw - 125px);
 }
 .md-app-drawer {
