@@ -3,15 +3,15 @@
     <div class="form">
       <h1>Course "FE 9+10 Advanced"</h1>
       <router-link to="/sign-in">Link to Demo</router-link>
-      <h2>List of Students</h2>
+      <h2>Students</h2>
       <md-list class="md-list">
         <md-list-item class="md-list-item" v-for="item in students" :key="item">
           {{ item }}
         </md-list-item>
       </md-list>
-      <h2>List of Technology</h2>
+      <h2>Used Technologies</h2>
       <md-list class="md-list">
-        <md-list-item v-for="item in technology" :key="item">{{ item }}</md-list-item>
+        <md-list-item v-for="item in technologies" :key="item">{{ item }}</md-list-item>
       </md-list>
     </div>
   </div>
@@ -28,7 +28,7 @@ export default {
         'Черина Юлия',
         'Вощевская Светлана',
       ],
-      technology: [
+      technologies: [
         'firebase',
         'lodash',
         'vue',
