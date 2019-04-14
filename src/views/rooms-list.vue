@@ -129,7 +129,7 @@ export default {
   firestore() {
     return {
       rooms: roomsCollection.orderBy('name', 'asc'),
-      user: usersCollection.doc(this.userId)
+      user: usersCollection.doc(this.userId),
     };
   },
   computed: {
