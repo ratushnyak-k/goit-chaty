@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import firebase from 'firebase/app'
+import firebase from 'firebase/app';
 import { usersCollection } from '@/main.js';
 export default {
   name: 'room-item',
@@ -36,11 +36,11 @@ export default {
     },
   },
   data() {
-    return { userId: firebase.auth().currentUser.uid };
+    return { userId: firebase.auth().currentUser.uid};
   },
   firestore() {
     return {
-      creator: usersCollection.doc(this.userId),
+      creator: usersCollection.doc(this.usersId),
     };
   },
   computed: {
@@ -48,7 +48,7 @@ export default {
       return `/rooms/${this.data.id}`;
     },
     showActionButtons() {
-      if (this.creatorId === this.userId) {
+      if (this.creatorId === this.usersId) {
         return true;
       }
     },
