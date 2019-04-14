@@ -36,7 +36,6 @@
             showActionButtons
             :data="room"
           />
-
         </md-list>
         <md-button class="md-raised md-accent">Logout</md-button>
       </md-app-drawer>

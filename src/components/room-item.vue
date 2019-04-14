@@ -17,9 +17,9 @@ export default {
   name: 'room-item',
   props: {
     data: {
-      type : Object,
+      type: Object,
       required: true,
-      },
+    },
 
     showActionButtons: {
       type: Boolean,
@@ -38,9 +38,9 @@ export default {
     },
   },
   computed: {
-    linkTo  () {
-      return `/rooms/${this.data.id}`
-    }
+    linkTo() {
+      return `/rooms/${this.data.id}`;
+    },
   },
 };
 </script>
