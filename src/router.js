@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from './views/home.vue';
 import RoomsList from './views/rooms-list.vue';
 import RoomDetail from './views/room-detail.vue';
+import NotFound from './views/not-found.vue';
 import SignUp from './views/sign-up.vue';
 import SignIn from './views/sign-in.vue';
 import firebase from 'firebase/app';
@@ -45,6 +46,11 @@ const router = new Router({
       path: '/sign-in',
       name: 'sign-in',
       component: SignIn,
+    },
+    {
+      path: '*',
+      name: 'not-found',
+      component: NotFound,
     },
   ],
 });
