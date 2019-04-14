@@ -44,7 +44,7 @@
             />
           </md-list-item>
         </md-list>
-        <md-button class="md-raised md-accent">Logout</md-button>
+        <md-button class="md-raised md-accent" @click="logOut">Logout</md-button>
       </md-app-drawer>
 
       <md-app-content>
@@ -110,7 +110,7 @@
 import RoomItem from '@/components/room-item';
 import EditRoomForm from '@/components/edit-room-form';
 import firebase from 'firebase/app';
-import { roomsCollection } from '../main.js';
+import { roomsCollection, usersCollection } from '../main.js';
 import StarterScreen from '@/components/starter-screen';
 export default {
   name: 'rooms-list',
@@ -123,15 +123,13 @@ export default {
     showDialogType: '',
     dialogData: {},
     rooms: [],
-    user: {
-      firstName: 'John',
-      lastName: 'Doe',
-    },
+    user: null,
     userId: firebase.auth().currentUser.uid,
   }),
   firestore() {
     return {
       rooms: roomsCollection.orderBy('name', 'asc'),
+      user: usersCollection.doc(this.userId)
     };
   },
   computed: {
@@ -169,6 +167,9 @@ export default {
   },
 
   methods: {
+    logOut() {
+      firebase.auth().signOut();
+    },
     add({ name }) {
       roomsCollection.add({ name, creatorId: this.userId });
     },
