@@ -1,8 +1,10 @@
 <template>
-  <div>
-    <h1>Sign up</h1>
+  <div class="container">
+    <h1 class="md-title">Sign up</h1>
     <sign-up-form :onSubmit="onSubmit" :sending="sending"></sign-up-form>
-    <p>Already have an account <router-link to="/sign-in">Sign in</router-link></p>
+    <p class="md-body-1">
+      Already have an account <router-link to="/sign-in">Sign in</router-link>
+    </p>
     <md-snackbar :md-active.sync="showSnack" md-persistent>
       <span>{{ error }}</span>
       <md-button class="md-primary" @click="showSnack = false">Close</md-button>
@@ -49,4 +51,15 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+.md-title,
+.md-body-1 {
+  text-align: center;
+}
+</style>
