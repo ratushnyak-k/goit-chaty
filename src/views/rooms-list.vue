@@ -2,7 +2,14 @@
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed">
       <md-app-toolbar class="md-primary" v-if="$route.params.id">
-        <span class="md-title">ROOM</span>
+        <room-item
+          v-if="activeRoom"
+          :onEditClick="onEditRoom"
+          :onDeleteClick="onDeleteRoom"
+          showActionButtons
+          :data="activeRoom"
+          :key="activeRoom.id"
+        />
       </md-app-toolbar>
 
       <md-app-drawer md-permanent="full">
@@ -28,14 +35,14 @@
         <md-divider></md-divider>
 
         <md-list>
-          <room-item
-            v-for="room in rooms"
-            :key="room.id"
-            :onEditClick="onEditRoom"
-            :onDeleteClick="onDeleteRoom"
-            showActionButtons
-            :data="room"
-          />
+          <md-list-item v-for="room in rooms" :key="room.id">
+            <room-item
+              :onEditClick="onEditRoom"
+              :onDeleteClick="onDeleteRoom"
+              showActionButtons
+              :data="room"
+            />
+          </md-list-item>
         </md-list>
         <md-button class="md-raised md-accent">Logout</md-button>
       </md-app-drawer>
@@ -143,7 +150,11 @@ export default {
       }
       return this.user.firstName[0] + this.user.lastName[0];
     },
+    activeRoom() {
+      return this.rooms.find((item) => item.id === this.$route.params.id);
+    },
   },
+
   methods: {
     add({ name }) {
       roomsCollection.add({ name, creatorId: this.userId });
