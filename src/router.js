@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from './views/home.vue';
 import RoomsList from './views/rooms-list.vue';
 import RoomDetail from './views/room-detail.vue';
+import SignUp from './views/sign-up.vue';
 
 Vue.use(Router);
 
@@ -26,6 +27,11 @@ export default new Router({
           component: RoomDetail,
         },
       ],
+    },
+    {
+      path: '/sign-up',
+      name: 'sign-up',
+      component: SignUp,
     },
   ],
 });
