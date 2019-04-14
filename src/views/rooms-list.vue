@@ -92,7 +92,7 @@
 import RoomItem from '@/components/room-item';
 import EditRoomForm from '@/components/edit-room-form';
 import firebase from 'firebase/app';
-import roomsCollection from '@/main.js';
+import { roomsCollection } from '../main.js';
 export default {
   name: 'rooms-list',
   components: {
@@ -102,11 +102,7 @@ export default {
   data: () => ({
     showDialogType: '',
     dialogData: {},
-    rooms: [
-      { id: 1, name: 'Room name 1', creatorId: 1 },
-      { id: 2, name: 'Room name 2', creatorId: 2 },
-      { id: 3, name: 'Room name 3', creatorId: 3 },
-    ],
+    rooms: [],
     user: {
       firstName: 'John',
       lastName: 'Doe',
