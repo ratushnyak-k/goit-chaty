@@ -1,18 +1,26 @@
 <template>
   <div class="page-container">
     <md-app md-waterfall md-mode="fixed">
-      <md-app-toolbar class="md-primary" v-if="$route.params.id">
-        <room-item
-          v-if="activeRoom"
-          :onEditClick="onEditRoom"
-          :onDeleteClick="onDeleteRoom"
-          showActionButtons
-          :data="activeRoom"
-          :key="activeRoom.id"
-        />
+      <md-app-toolbar class="md-primary">
+        <div class="md-toolbar-row">
+          <div class="md-toolbar-section-start">
+            <md-button class="md-icon-button menu-btn" @click="menuVisible = !menuVisible">
+              <md-icon>menu</md-icon>
+            </md-button>
+
+            <room-item
+              v-if="activeRoom && $route.params.id"
+              :onEditClick="onEditRoom"
+              :onDeleteClick="onDeleteRoom"
+              showActionButtons
+              :data="activeRoom"
+              :key="activeRoom.id"
+            />
+          </div>
+        </div>
       </md-app-toolbar>
 
-      <md-app-drawer md-permanent="full">
+      <md-app-drawer md-permanent="full" :md-active.sync="menuVisible">
         <md-list>
           <md-list-item>
             <md-avatar class="md-avatar-icon md-large md-accent">
@@ -77,42 +85,12 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-.md-app {
-  height: 100vh;
-  border: 1px solid rgba(#000, 0.12);
-}
-
-.md-drawer {
-  width: 300px;
-  max-width: calc(100vw - 125px);
-}
-.md-app-drawer {
-  display: flex;
-  flex-direction: column;
-}
-.md-list {
-  overflow-x: auto;
-}
-.md-raised {
-  margin-top: auto;
-  margin-bottom: 40px;
-}
-.str_scr {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-</style>
-
 <script>
 import RoomItem from '@/components/room-item';
 import EditRoomForm from '@/components/edit-room-form';
+import StarterScreen from '@/components/starter-screen';
 import firebase from 'firebase/app';
 import { roomsCollection, usersCollection } from '../main.js';
-import StarterScreen from '@/components/starter-screen';
 export default {
   name: 'rooms-list',
   components: {
@@ -126,6 +104,7 @@ export default {
     rooms: [],
     user: null,
     userId: firebase.auth().currentUser.uid,
+    menuVisible: false,
   }),
   firestore() {
     return {
@@ -217,3 +196,39 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.md-app {
+  height: 100vh;
+  border: 1px solid rgba(#000, 0.12);
+}
+
+.md-drawer {
+  width: 300px;
+  max-width: calc(100vw - 125px);
+}
+.md-app-drawer {
+  display: flex;
+  flex-direction: column;
+}
+.md-list {
+  overflow-x: auto;
+}
+.md-raised {
+  margin-top: auto;
+  margin-bottom: 25px;
+}
+.str_scr {
+  height: 100%;
+}
+
+.md-content {
+  padding: 0;
+}
+
+@media screen and (min-width: 600px) {
+  .menu-btn {
+    display: none;
+  }
+}
+</style>

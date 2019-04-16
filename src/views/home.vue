@@ -50,9 +50,11 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto 20px auto;
 }
-.md-list-item {
-  width: 600px;
+.md-list {
+  width: 100%;
 }
 </style>

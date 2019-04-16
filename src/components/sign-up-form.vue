@@ -1,5 +1,5 @@
 <template>
-  <form novalidate @submit.prevent="validateUser">
+  <form novalidate class="md-layout" @submit.prevent="validateUser">
     <md-card class="md-layout-item">
       <md-card-content>
         <md-field :class="getValidationClass('firstName')">

@@ -61,12 +61,20 @@ export default {
                 snapshot.forEach((s) => {
                   this.messages.push({ ...s.data(), id: s.id });
                 });
+                this.scrollToBottom();
                 this.loading = false;
               });
           } else {
             this.$router.replace('/rooms');
           }
         });
+    },
+    scrollToBottom() {
+      const scroller = this.$el.querySelector('.form-content');
+
+      setTimeout(() => {
+        scroller && scroller.scrollTo(0, scroller.scrollHeight);
+      }, 0);
     },
     onSubmit(data) {
       roomsCollection
@@ -78,15 +86,14 @@ export default {
           createdAt: +new Date(),
         })
         .then(() => {
-          const scroller = this.$el.querySelector('.form-content');
-          scroller.scrollTo(0, scroller.scrollHeight);
+          this.scrollToBottom();
         });
     },
   },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .md-app-scroller {
   position: relative;
 }
@@ -105,6 +112,13 @@ export default {
 .form-content {
   overflow: auto;
   margin-top: auto;
-  max-height: calc(100% - 80px);
+  max-height: calc(100% - 76px);
+  & > p {
+    padding: 0 10px;
+  }
+}
+
+form {
+  padding: 0 10px;
 }
 </style>
